@@ -1,0 +1,22 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Iad.Wasp.Automation</id>
+    <version>1.1</version>
+    <title>Wasp Automation</title>
+    <authors>sbalashov</authors>
+    <owners>sbalashov</owners>
+    <licenseUrl>https://github.com/funtik/Wasp/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/funtik/Wasp</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A .NET layer on top of the Selenium browser automation framework.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>acceptance ui automation system test testing</tags>
+    <dependencies>
+      <dependency id="CoreCompat.Selenium.WebDrive" version="3.5.3-beta001"></dependency>
+      <dependency id="CoreCompat.System.Drawing" version="1.0.0-beta006"></dependency>
+      <dependency id="Newtonsoft.Json" version="9.0.1"></dependency>
+    </dependencies>
+  </metadata>
+</package>

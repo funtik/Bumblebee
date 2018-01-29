@@ -17,15 +17,15 @@ REM ====================
 SET /p NuGetApiKey= Please enter the project's NuGet API Key: 
 nuget.exe setApiKey %NuGetApiKey%
 
-SET package="src\Bumblebee\Bumblebee.csproj"
+SET package="src\Wasp\Wasp.csproj"
 
 REM Create the Package
 REM ==================
 ECHO "Packing/Pushing project found here:  %package%."
-nuget.exe pack -Build -OutputDirectory build %package% -Prop Configuration=Release
+"c:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\MSBuild.exe" /t:pack /p:PackageVersion=1.1  %package%
 
 REM Push to Nuget 
 REM =============
-cd build
-nuget.exe push *.nupkg
-cd ..
+REM cd build
+REM nuget.exe push *.nupkg
+REM cd ..
