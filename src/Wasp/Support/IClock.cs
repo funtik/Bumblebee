@@ -18,7 +18,7 @@
 
 using System;
 
-namespace Bumblebee.Support
+namespace Wasp.Support
 {
     /// <summary>
     /// An interface describing time handling functions for timeouts.

@@ -17,9 +17,10 @@
 // </copyright>
 
 using System;
+
 using OpenQA.Selenium;
 
-namespace Bumblebee.Support
+namespace Wasp.Support
 {
     /// <summary>
     /// Provides the ability to wait for an arbitrary condition during test execution.

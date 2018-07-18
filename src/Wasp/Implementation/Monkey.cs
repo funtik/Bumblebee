@@ -1,37 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Bumblebee.Interfaces;
+using Wasp.Interfaces;
 
-namespace Bumblebee.Implementation
+namespace Wasp.Implementation
 {
-	public abstract class Monkey : IMonkey
-	{
-		private double _probability { get; set; }
+    public abstract class Monkey : IMonkey
+    {
+        private double _probability { get; set; }
 
-		protected double Probability
-		{
-			get { return _probability; }
-			set
-			{
-				if (value > 1 || value < 0)
-					throw new FormatException("Probability must be between 0 and 1");
-				_probability = value;
-			}
-		}
+        protected double Probability
+        {
+            get { return this._probability; }
+            set
+            {
+                if (value > 1 || value < 0)
+                    throw new FormatException("Probability must be between 0 and 1");
+                this._probability = value;
+            }
+        }
 
-		public virtual void SetProbability(double probability)
-		{
-		}
+        public virtual void SetProbability(double probability)
+        {
+        }
 
-		protected IBlock Block { get; set; }
+        protected IBlock Block { get; set; }
 
-		public IList<string> Logs { get; protected set; }
+        public IList<string> Logs { get; protected set; }
 
-		public abstract void PerformRandomAction();
+        public abstract void PerformRandomAction();
 
-		public abstract void Invoke(IBlock block);
+        public abstract void Invoke(IBlock block);
 
-		public abstract void VerifyState();
-	}
+        public abstract void VerifyState();
+    }
 }

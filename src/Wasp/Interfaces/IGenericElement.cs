@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace Bumblebee.Interfaces
+namespace Wasp.Interfaces
 {
-	[Obsolete("This interface is not needed and will be removed in a future release.")]
-	public interface IGenericElement<out TResult> : IElement
-		where TResult : IBlock
-	{
-	}
+    [Obsolete("This interface is not needed and will be removed in a future release.")]
+    public interface IGenericElement<out TResult> : IElement
+        where TResult : IBlock
+    {
+    }
 }

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 
-namespace Bumblebee.Interfaces
+namespace Wasp.Interfaces
 {
-	public interface IRadioButtons<out TResult> where TResult : IBlock
-	{
-		IEnumerable<IOption<TResult>> Options { get; }
-	}
+    public interface IRadioButtons<out TResult> where TResult : IBlock
+    {
+        IEnumerable<IOption<TResult>> Options { get; }
+    }
 }

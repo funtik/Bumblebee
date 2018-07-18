@@ -1,15 +1,15 @@
-﻿using Bumblebee.Interfaces;
-using Bumblebee.Setup;
+﻿using OpenQA.Selenium;
 
-using OpenQA.Selenium;
+using Wasp.Interfaces;
+using Wasp.Setup;
 
-namespace Bumblebee.Implementation
+namespace Wasp.Implementation
 {
-	public abstract class SpecificBlock : Block, ISpecificBlock
-	{
-		protected SpecificBlock(Session session, IWebElement tag) : base(session)
-		{
-			Tag = tag;
-		}
-	}
+    public abstract class SpecificBlock : Block, ISpecificBlock
+    {
+        protected SpecificBlock(Session session, IWebElement tag) : base(session)
+        {
+            this.Tag = tag;
+        }
+    }
 }

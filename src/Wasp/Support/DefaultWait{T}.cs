@@ -21,9 +21,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
+
 using OpenQA.Selenium;
 
-namespace Bumblebee.Support
+namespace Wasp.Support
 {
     /// <summary>
     /// An implementation of the <see cref="IWait&lt;T&gt;"/> interface that may have its timeout and polling interval
@@ -150,7 +151,8 @@ namespace Bumblebee.Support
             var resultType = typeof(TResult);
             if ((resultType.IsValueType && resultType != typeof(bool)) || !typeof(object).IsAssignableFrom(resultType))
             {
-                throw new ArgumentException("Can only wait on an object or boolean response, tried to use type: " + resultType.ToString(), "condition");
+                throw new ArgumentException("Can only wait on an object or boolean response, tried to use type: " + resultType,
+                    "condition");
             }
 
             Exception lastException = null;

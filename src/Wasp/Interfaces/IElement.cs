@@ -1,6 +1,6 @@
-﻿namespace Bumblebee.Interfaces
+﻿namespace Wasp.Interfaces
 {
-	public interface IElement : IDraggable, IHasSession
-	{
-	}
+    public interface IElement : IDraggable, IHasSession
+    {
+    }
 }

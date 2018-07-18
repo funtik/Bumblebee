@@ -2,16 +2,16 @@
 
 using OpenQA.Selenium.IE;
 
-namespace Bumblebee.Setup.DriverEnvironments
+namespace Wasp.Setup.DriverEnvironments
 {
-	public class InternetExplorer : SimpleDriverEnvironment<InternetExplorerDriver>
-	{
-		public InternetExplorer()
-		{
-		}
+    public class InternetExplorer : SimpleDriverEnvironment<InternetExplorerDriver>
+    {
+        public InternetExplorer()
+        {
+        }
 
-		public InternetExplorer(TimeSpan timeToWait) : base(timeToWait)
-		{
-		}
-	}
+        public InternetExplorer(TimeSpan timeToWait) : base(timeToWait)
+        {
+        }
+    }
 }

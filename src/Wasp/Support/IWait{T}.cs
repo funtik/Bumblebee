@@ -18,7 +18,7 @@
 
 using System;
 
-namespace Bumblebee.Support
+namespace Wasp.Support
 {
     /// <summary>
     /// Interface describing a class designed to wait for a condition.

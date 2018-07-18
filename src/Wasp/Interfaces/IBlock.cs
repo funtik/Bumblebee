@@ -1,6 +1,6 @@
-namespace Bumblebee.Interfaces
+namespace Wasp.Interfaces
 {
-	public interface IBlock : IElement, IMonkeyable
-	{
-	}
+    public interface IBlock : IElement, IMonkeyable
+    {
+    }
 }

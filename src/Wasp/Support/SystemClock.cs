@@ -18,7 +18,7 @@
 
 using System;
 
-namespace Bumblebee.Support
+namespace Wasp.Support
 {
     /// <summary>
     /// Uses the system clock to calculate time for timeouts.

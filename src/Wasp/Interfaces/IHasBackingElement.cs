@@ -1,9 +1,9 @@
 ﻿using OpenQA.Selenium;
 
-namespace Bumblebee.Interfaces
+namespace Wasp.Interfaces
 {
-	public interface IHasBackingElement
-	{
-		IWebElement Tag { get; }
-	}
+    public interface IHasBackingElement
+    {
+        IWebElement Tag { get; }
+    }
 }

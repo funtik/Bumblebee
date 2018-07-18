@@ -1,16 +1,49 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.0;net452</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.0;net452;net461</TargetFrameworks>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.0'">
+	<DefineConstants>NETCORE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net452'">
+	<DefineConstants>NET452;NETFULL</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net461'">
+	<DefineConstants>NET461;NETFULL</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Selenium\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="Selenium.Support" Version="3.11.0" />
+    <PackageReference Include="Selenium.WebDriver" Version="3.11.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Configuration">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.configuration.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.0'">
+    <PackageReference Include="Configgy.Microsoft.Extensions.Configuration">
+      <Version>1.0.3</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+    <PackageReference Include="Configgy.Microsoft.Extensions.Configuration">
+      <Version>1.0.3</Version>
+    </PackageReference>
+  </ItemGroup>
+
+
 
 </Project>

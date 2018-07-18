@@ -2,31 +2,31 @@
 
 using OpenQA.Selenium;
 
-namespace Bumblebee.Setup.DriverEnvironments
+namespace Wasp.Setup.DriverEnvironments
 {
-	public abstract class SimpleDriverEnvironment<TWebDriver> : IDriverEnvironment
-		where TWebDriver : IWebDriver, new()
-	{
-		private TimeSpan TimeToWait { get; set; }
+    public abstract class SimpleDriverEnvironment<TWebDriver> : IDriverEnvironment
+        where TWebDriver : IWebDriver, new()
+    {
+        private TimeSpan TimeToWait { get; set; }
 
-		public SimpleDriverEnvironment() : this(TimeSpan.FromSeconds(5))
-		{
-		}
+        public SimpleDriverEnvironment() : this(TimeSpan.FromSeconds(5))
+        {
+        }
 
-		public SimpleDriverEnvironment(TimeSpan timeToWait)
-		{
-			TimeToWait = timeToWait;
-		}
+        public SimpleDriverEnvironment(TimeSpan timeToWait)
+        {
+            this.TimeToWait = timeToWait;
+        }
 
-		public virtual IWebDriver CreateWebDriver()
-		{
-			var driver = new TWebDriver();
+        public virtual IWebDriver CreateWebDriver()
+        {
+            var driver = new TWebDriver();
 
-			driver.Manage().Window.Maximize();
+            driver.Manage().Window.Maximize();
 
-			driver.Manage().Timeouts().ImplicitWait = this.TimeToWait;
-			
-			return driver;
-		}
-	}
+            driver.Manage().Timeouts().ImplicitWait = this.TimeToWait;
+
+            return driver;
+        }
+    }
 }

@@ -1,9 +1,9 @@
 ﻿using OpenQA.Selenium;
 
-namespace Bumblebee.Setup
+namespace Wasp.Setup
 {
-	public interface IDriverEnvironment
-	{
-		IWebDriver CreateWebDriver();
-	}
+    public interface IDriverEnvironment
+    {
+        IWebDriver CreateWebDriver();
+    }
 }

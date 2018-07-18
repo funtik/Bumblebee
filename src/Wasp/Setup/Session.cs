@@ -2,125 +2,129 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Bumblebee.Extensions;
-using Bumblebee.Interfaces;
 
 using OpenQA.Selenium;
 
-namespace Bumblebee.Setup
+using Wasp.Extensions;
+using Wasp.Interfaces;
+
+namespace Wasp.Setup
 {
-	public class Session
-	{
-		public virtual ISettings Settings { get; private set; }
+    public class Session
+    {
+        public virtual ISettings Settings { get; private set; }
 
-		public virtual IWebDriver Driver { get; private set; }
+        public virtual IWebDriver Driver { get; private set; }
 
-		public virtual IMonkey Monkey { get; protected set; }
+        public virtual IMonkey Monkey { get; protected set; }
 
-		public Session(IDriverEnvironment environment) : this(environment, new Settings())
-		{
-		}
+        public bool IsMobile { get; set; }
 
-		public Session(IDriverEnvironment environment, ISettings settings)
-		{
-			Settings = settings;
-			Driver = environment.CreateWebDriver();
-		}
+        public Session(IDriverEnvironment environment) : this(environment, new Settings())
+        {
+        }
 
-		public virtual TBlock NavigateTo<TBlock>(string url) where TBlock : IBlock
-		{
-			Driver.Navigate().GoToUrl(url);
-			return CurrentBlock<TBlock>();
-		}
+        public Session(IDriverEnvironment environment, ISettings settings)
+        {
+            this.Settings = settings;
+            this.Driver = environment.CreateWebDriver();
+            this.IsMobile = false;
+        }
 
-		public virtual TBlock CurrentBlock<TBlock>(IWebElement tag = null) where TBlock : IBlock
-		{
-			var type = typeof (TBlock);
-			IList<Type> constructorSignature = new List<Type> { typeof (Session) };
-			IList<object> constructorArgs = new List<object> { this };
+        public virtual TBlock NavigateTo<TBlock>(string url) where TBlock : IBlock
+        {
+            this.Driver.Navigate().GoToUrl(url);
+            return this.CurrentBlock<TBlock>();
+        }
 
-			if (typeof (ISpecificBlock).IsAssignableFrom(typeof (TBlock)))
-			{
-				constructorSignature.Add(typeof (IWebElement));
-				constructorArgs.Add(tag);
-			}
+        public virtual TBlock CurrentBlock<TBlock>(IWebElement tag = null) where TBlock : IBlock
+        {
+            var type = typeof(TBlock);
+            IList<Type> constructorSignature = new List<Type> { typeof(Session) };
+            IList<object> constructorArgs = new List<object> { this };
 
-			var constructor = type.GetConstructor(constructorSignature.ToArray());
+            if (typeof(ISpecificBlock).IsAssignableFrom(typeof(TBlock)))
+            {
+                constructorSignature.Add(typeof(IWebElement));
+                constructorArgs.Add(tag);
+            }
 
-			if (constructor == null)
-			{
-				throw new ArgumentException(String.Format("The result type specified ({0}) is not a valid block. It must have a constructor that takes only a session.", type));
-			}
+            var constructor = type.GetConstructor(constructorSignature.ToArray());
 
-			return (TBlock) constructor.Invoke(constructorArgs.ToArray());
-		}
+            if (constructor == null)
+            {
+                throw new ArgumentException(String.Format(
+                    "The result type specified ({0}) is not a valid block. It must have a constructor that takes only a session.", type));
+            }
 
-		public virtual void End()
-		{
-			if (Driver != null)
-			{
-				Driver.Quit();
+            return (TBlock)constructor.Invoke(constructorArgs.ToArray());
+        }
 
-				Driver.Dispose();
+        public virtual void End()
+        {
+            if (this.Driver != null)
+            {
+                this.Driver.Quit();
 
-				Driver = null;
-			}
-		}
+                this.Driver.Dispose();
 
-		public virtual Session CaptureScreen()
-		{
-			var filename = String.Format("{0}.png", CallStack.GetCallingMethod().GetFullName());
-			var path = Path.Combine(Settings.ScreenCapturePath, filename);
-			return CaptureScreen(path);
-		}
+                this.Driver = null;
+            }
+        }
 
-		public virtual Session CaptureScreen(string path)
-		{
-			var screenshot = ((ITakesScreenshot)Driver).GetScreenshot();
+        public virtual Session CaptureScreen()
+        {
+            var filename = String.Format("{0}.png", CallStack.GetCallingMethod().GetFullName());
+            var path = Path.Combine(this.Settings.ScreenCapturePath, filename);
+            return this.CaptureScreen(path);
+        }
 
-			var extension = Path.GetExtension(path);
+        public virtual Session CaptureScreen(string path)
+        {
+            var screenshot = ((ITakesScreenshot)this.Driver).GetScreenshot();
 
-			if (String.Equals(extension, ".png", StringComparison.OrdinalIgnoreCase))
-			{
-				screenshot.SaveAsFile(path, ScreenshotImageFormat.Png);
-			}
-			else if ((String.Equals(extension, ".jpg", StringComparison.OrdinalIgnoreCase))
-					|| (String.Equals(extension, ".jpeg", StringComparison.OrdinalIgnoreCase)))
-			{
-				screenshot.SaveAsFile(path, ScreenshotImageFormat.Jpeg);
-			}
-			else if (String.Equals(extension, ".bmp", StringComparison.OrdinalIgnoreCase))
-			{
-				screenshot.SaveAsFile(path, ScreenshotImageFormat.Bmp);
-			}
-			else if (String.Equals(extension, ".gif", StringComparison.OrdinalIgnoreCase))
-			{
-				screenshot.SaveAsFile(path, ScreenshotImageFormat.Gif);
-			}
-			else
-			{
-				throw new ArgumentException("Unable to determine image format. The supported formats are BMP, GIF, JPEG and PNG.", "path");
-			}
+            var extension = Path.GetExtension(path);
 
-			return this;
-		}
+            if (String.Equals(extension, ".png", StringComparison.OrdinalIgnoreCase))
+            {
+                screenshot.SaveAsFile(path, ScreenshotImageFormat.Png);
+            }
+            else if ((String.Equals(extension, ".jpg", StringComparison.OrdinalIgnoreCase))
+                     || (String.Equals(extension, ".jpeg", StringComparison.OrdinalIgnoreCase)))
+            {
+                screenshot.SaveAsFile(path, ScreenshotImageFormat.Jpeg);
+            }
+            else if (String.Equals(extension, ".bmp", StringComparison.OrdinalIgnoreCase))
+            {
+                screenshot.SaveAsFile(path, ScreenshotImageFormat.Bmp);
+            }
+            else if (String.Equals(extension, ".gif", StringComparison.OrdinalIgnoreCase))
+            {
+                screenshot.SaveAsFile(path, ScreenshotImageFormat.Gif);
+            }
+            else
+            {
+                throw new ArgumentException("Unable to determine image format. The supported formats are BMP, GIF, JPEG and PNG.", "path");
+            }
 
-		public virtual T ExecuteJavaScript<T>(string script, params object[] args)
-		{
-			return Driver.ExecuteScript<T>(script, args);
-		}
-	}
+            return this;
+        }
 
-	public class Session<TDriverEnvironment> : Session
-		where TDriverEnvironment : IDriverEnvironment, new()
-	{
-		public Session() : base(new TDriverEnvironment())
-		{
-		}
+        public virtual T ExecuteJavaScript<T>(string script, params object[] args)
+        {
+            return this.Driver.ExecuteScript<T>(script, args);
+        }
+    }
 
-		public Session(ISettings settings) : base(new TDriverEnvironment(), settings)
-		{
-			
-		}
-	}
+    public class Session<TDriverEnvironment> : Session
+        where TDriverEnvironment : IDriverEnvironment, new()
+    {
+        public Session() : base(new TDriverEnvironment())
+        {
+        }
+
+        public Session(ISettings settings) : base(new TDriverEnvironment(), settings)
+        {
+        }
+    }
 }

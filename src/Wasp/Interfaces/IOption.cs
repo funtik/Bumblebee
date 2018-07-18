@@ -1,11 +1,11 @@
-namespace Bumblebee.Interfaces
+namespace Wasp.Interfaces
 {
-	public interface IOption : IClickable, ISelectable
-	{
-	}
+    public interface IOption : IClickable, ISelectable
+    {
+    }
 
-	public interface IOption<out TResult> : IOption, IClickable<TResult>
-		where TResult : IBlock
-	{
-	}
+    public interface IOption<out TResult> : IOption, IClickable<TResult>
+        where TResult : IBlock
+    {
+    }
 }

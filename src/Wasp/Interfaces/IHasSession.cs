@@ -1,9 +1,9 @@
-using Bumblebee.Setup;
+using Wasp.Setup;
 
-namespace Bumblebee.Interfaces
+namespace Wasp.Interfaces
 {
-	public interface IHasSession
-	{
-		Session Session { get; }
-	}
+    public interface IHasSession
+    {
+        Session Session { get; }
+    }
 }
