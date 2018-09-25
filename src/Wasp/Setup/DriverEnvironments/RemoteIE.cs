@@ -19,9 +19,9 @@ namespace Wasp.Setup.DriverEnvironments
             capability.SetCapability("enablePersistentHover", false);
             capability.SetCapability("ie.ensureCleanSession", true);
 
-            var driver = new RemoteWebDriver(new Uri(uri), capability, TimeSpan.FromSeconds(60));
+            var driver = new RemoteWebDriver(new Uri(uri), capability, ConfigHelper.GetInstance().DefaultCommandTimeout);
             driver.Manage().Window.Maximize();
-            driver.Manage().Timeouts().ImplicitWait = new TimeSpan(0, 0, 15);
+            driver.Manage().Timeouts().ImplicitWait = ConfigHelper.GetInstance().DefaultImplicitWait;
             return driver;
         }
     }

@@ -5,6 +5,8 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Safari;
 
+using Wasp.Helpers;
+
 namespace Wasp.Setup.DriverEnvironments
 {
     public class RemoteIPhone : IDriverEnvironment
@@ -21,9 +23,9 @@ namespace Wasp.Setup.DriverEnvironments
             capability.SetCapability(CapabilityType.Platform, "Mac");
             capability.SetCapability(CapabilityType.AcceptSslCertificates, true);
             capability.SetCapability(CapabilityType.AcceptInsecureCertificates, true);
-            var driver = new RemoteWebDriver(new Uri(uri), capability);
+            var driver = new RemoteWebDriver(new Uri(uri), capability, ConfigHelper.GetInstance().DefaultCommandTimeout);
             Thread.Sleep(500);
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(15);
+            driver.Manage().Timeouts().ImplicitWait = ConfigHelper.GetInstance().DefaultImplicitWait;
             return driver;
         }
     }

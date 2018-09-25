@@ -32,6 +32,8 @@ namespace Wasp.Helpers
 
         public TimeSpan DefaultImplicitWait => TimeSpan.FromSeconds(15);
 
+        public TimeSpan DefaultCommandTimeout => TimeSpan.FromSeconds(30);
+
         public static ConfigHelper GetInstance()
         {
             return Lazy.Value;

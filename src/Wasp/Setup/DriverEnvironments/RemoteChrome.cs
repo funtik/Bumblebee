@@ -17,7 +17,7 @@ namespace Wasp.Setup.DriverEnvironments
             var capability = new DesiredCapabilities();
             capability.SetCapability(CapabilityType.BrowserName, DesiredCapabilities.Chrome().BrowserName);
             capability.SetCapability(CapabilityType.Platform, "LINUX");
-            var driver = new RemoteWebDriver(new Uri(uri), capability, TimeSpan.FromSeconds(60));
+            var driver = new RemoteWebDriver(new Uri(uri), capability, ConfigHelper.GetInstance().DefaultCommandTimeout);
             Thread.Sleep(500);
             driver.Manage().Window.Size = new Size(1920, 1080);
             driver.Manage().Timeouts().ImplicitWait = ConfigHelper.GetInstance().DefaultImplicitWait;

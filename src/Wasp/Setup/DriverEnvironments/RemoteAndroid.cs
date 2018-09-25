@@ -5,6 +5,8 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
 
+using Wasp.Helpers;
+
 namespace Wasp.Setup.DriverEnvironments
 {
     public class RemoteAndroid : IDriverEnvironment
@@ -42,9 +44,9 @@ namespace Wasp.Setup.DriverEnvironments
             capability.SetCapability("ignoreUnimportantViews", true);
             capability.SetCapability("disableAndroidWatchers", true);
             capability.SetCapability("nativeWebScreenshot", true);
-            var driver = new RemoteWebDriver(new Uri(uri), capability, TimeSpan.FromSeconds(60));
+            var driver = new RemoteWebDriver(new Uri(uri), capability, ConfigHelper.GetInstance().DefaultCommandTimeout);
             Thread.Sleep(500);
-            driver.Manage().Timeouts().ImplicitWait = new TimeSpan(0, 0, 15);
+            driver.Manage().Timeouts().ImplicitWait = ConfigHelper.GetInstance().DefaultImplicitWait;
             return driver;
         }
     }
